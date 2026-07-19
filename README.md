@@ -9,7 +9,7 @@ for load balancers.
 
 ```hcl
 module "mig" {
-  source = "github.com/cybercapybara/terraform-google-managed-instance-group"
+  source = "github.com/moveeeax/terraform-google-managed-instance-group"
 
   project_id         = var.project_id
   name               = "web-mig"
