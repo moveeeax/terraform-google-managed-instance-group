@@ -24,8 +24,25 @@ jobs:
       - name: validate
         run: tofu validate
 
-      - name: validate example
-        working-directory: examples/basic
+      - name: test
+        run: tofu test
+
+      - name: validate examples
         run: |
-          tofu init -backend=false
-          tofu validate
+          set -euo pipefail
+          for example in examples/*/; do
+            echo "::group::${example}"
+            tofu -chdir="${example}" init -backend=false
+            tofu -chdir="${example}" validate
+            echo "::endgroup::"
+          done
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: terraform-linters/setup-tflint@v4
+
+      - name: tflint
+        run: tflint --recursive --format compact
