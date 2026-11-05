@@ -18,7 +18,7 @@ resource "google_compute_health_check" "web" {
 }
 
 module "mig" {
-  source = "github.com/moveeeax/terraform-google-managed-instance-group"
+  source = "github.com/moveeeax/terraform-google-managed-instance-group?ref=v1.0.0"
 
   project_id         = var.project_id
   name               = "web-mig"
