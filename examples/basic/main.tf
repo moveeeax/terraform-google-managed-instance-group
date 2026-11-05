@@ -99,6 +99,10 @@ resource "google_compute_backend_service" "example" {
   port_name     = local.backend_port_name
   health_checks = [google_compute_health_check.example.id]
 
+  # Set explicitly: hashicorp/google 8.0 changed the default from EXTERNAL
+  # to EXTERNAL_MANAGED, which would otherwise switch the example silently.
+  load_balancing_scheme = "EXTERNAL"
+
   backend {
     group = module.mig.instance_group
   }
